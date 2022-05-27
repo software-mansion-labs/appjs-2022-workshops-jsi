@@ -1,7 +1,5 @@
 #include "react-native-appjs.h"
 
-namespace example {
-	int multiply(float a, float b) {
-		return a * b;
-	}
+void install(jsi::Runtime &rt) {
+  rt.global().setProperty(rt, "foo", jsi::Value(42));
 }

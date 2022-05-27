@@ -1,18 +1,19 @@
+import 'react-native-appjs';
+
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-appjs';
+import { Button, StyleSheet, View } from 'react-native';
+
+declare const foo: number;
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const handlePress = () => {
+    console.log(foo);
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button title="Click me!" onPress={handlePress} />
     </View>
   );
 }
@@ -22,10 +23,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });

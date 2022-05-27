@@ -2,11 +2,12 @@ package com.reactnativeappjs;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.JavaScriptContextHolder;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.soloader.SoLoader;
 
 @ReactModule(name = AppjsModule.NAME)
 public class AppjsModule extends ReactContextBaseJavaModule {
@@ -22,20 +23,13 @@ public class AppjsModule extends ReactContextBaseJavaModule {
         return NAME;
     }
 
-    static {
-        try {
-            // Used to load the 'native-lib' library on application startup.
-            System.loadLibrary("cpp");
-        } catch (Exception ignored) {
-        }
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public void install() {
+        SoLoader.loadLibrary("reactnativeappjs");
+        JavaScriptContextHolder jsContext = getReactApplicationContext().getJavaScriptContextHolder();
+        nativeInstall(jsContext.get());
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    public void multiply(int a, int b, Promise promise) {
-        promise.resolve(nativeMultiply(a, b));
-    }
+    private static native void nativeInstall(long jsiPtr);
 
-    public static native int nativeMultiply(int a, int b);
 }

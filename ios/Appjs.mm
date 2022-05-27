@@ -1,19 +1,20 @@
 #import "Appjs.h"
+#import <React/RCTBridge+Private.h>
 #import "react-native-appjs.h"
+
+using namespace facebook;
 
 @implementation Appjs
 
 RCT_EXPORT_MODULE()
 
-// Example method for C++
-// See the implementation of the example module in the `cpp` folder
-RCT_EXPORT_METHOD(multiply:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                  withResolver:(RCTPromiseResolveBlock)resolve
-                  withReject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install)
 {
-    NSNumber *result = @(example::multiply([a floatValue], [b floatValue]));
-
-    resolve(result);
+    RCTBridge* bridge = [RCTBridge currentBridge];
+    RCTCxxBridge* cxxBridge = (RCTCxxBridge *)bridge;
+    jsi::Runtime &runtime = *reinterpret_cast<jsi::Runtime *>(cxxBridge.runtime);
+    install(runtime);
+    return @true;
 }
 
 @end
