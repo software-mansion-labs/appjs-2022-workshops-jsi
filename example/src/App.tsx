@@ -39,7 +39,9 @@ export default function App() {
     }
   }
 
-  const task8 = () => {}
+  const task8 = () => {
+    console.log(reverseMeThis("App.js"))
+  }
 
   const task9 = () => {}
 

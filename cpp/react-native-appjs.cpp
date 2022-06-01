@@ -112,7 +112,28 @@ void task7(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task8(jsi::Runtime &rt) {}
+void task8(jsi::Runtime &rt) {
+  const char *functionName = "reverseMeThis";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Value &textJs = std::move(args[0]);
+    std::string text = textJs.asString(rt).utf8(rt);
+    std::reverse(text.begin(), text.end());
+    jsi::Value value = jsi::String::createFromUtf8(rt, text);
+    return value;
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task9(jsi::Runtime &rt) {}
 
