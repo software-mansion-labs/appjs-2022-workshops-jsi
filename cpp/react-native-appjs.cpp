@@ -212,7 +212,27 @@ void task11(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task12(jsi::Runtime &rt) {}
+void task12(jsi::Runtime &rt) {
+  const char *functionName = "useJsFunction";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    jsi::Object console = rt.global().getProperty(rt, "console").asObject(rt);
+    jsi::Function log = console.getProperty(rt, "log").asObject(rt).asFunction(rt);
+    log.call(rt, "Hello from the native side!");
+    return jsi::Value::undefined();
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task13(jsi::Runtime &rt) {}
 

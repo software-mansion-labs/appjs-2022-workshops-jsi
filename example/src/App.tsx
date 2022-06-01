@@ -59,7 +59,9 @@ export default function App() {
     console.log(result)
   }
 
-  const task12 = () => {}
+  const task12 = () => {
+    useJsFunction()
+  }
 
   const task13 = () => {}
 
