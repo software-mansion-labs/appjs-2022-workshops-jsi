@@ -6,7 +6,9 @@ import { Button, StyleSheet, View } from 'react-native';
 
 export default function App() {
 
-  const task1 = () => {}
+  const task1 = () => {
+    console.log(answerToTheUltimateQuestionOfLifeTheUniverseAndEverything)
+  }
 
   const task2 = () => {}
 

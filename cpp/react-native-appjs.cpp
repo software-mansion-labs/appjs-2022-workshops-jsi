@@ -17,7 +17,11 @@ void install(jsi::Runtime &rt) {
   task14(rt);
 }
 
-void task1(jsi::Runtime &rt) {}
+void task1(jsi::Runtime &rt) {
+  const char *propertyName = "answerToTheUltimateQuestionOfLifeTheUniverseAndEverything";
+  jsi::Value value = jsi::Value(42);
+  rt.global().setProperty(rt, propertyName, value);
+}
 
 void task2(jsi::Runtime &rt) {}
 
