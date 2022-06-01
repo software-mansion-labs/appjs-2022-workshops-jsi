@@ -18,7 +18,9 @@ export default function App() {
     console.log(conferenceName)
   }
 
-  const task4 = () => {}
+  const task4 = () => {
+    console.log(myAwesomeArray)
+  }
 
   const task5 = () => {}
 

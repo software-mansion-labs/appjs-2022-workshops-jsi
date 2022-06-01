@@ -35,7 +35,14 @@ void task3(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, value);
 }
 
-void task4(jsi::Runtime &rt) {}
+void task4(jsi::Runtime &rt) {
+  const char *propertyName = "myAwesomeArray";
+  jsi::Array arrayValue(rt, 3);
+  arrayValue.setValueAtIndex(rt, 0, 42);
+  arrayValue.setValueAtIndex(rt, 1, true);
+  arrayValue.setValueAtIndex(rt, 2, "App.js");
+  rt.global().setProperty(rt, propertyName, arrayValue);
+}
 
 void task5(jsi::Runtime &rt) {}
 
