@@ -29,7 +29,11 @@ void task2(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, value);
 }
 
-void task3(jsi::Runtime &rt) {}
+void task3(jsi::Runtime &rt) {
+  const char *propertyName = "conferenceName";
+  jsi::Value value = jsi::String::createFromUtf8(rt, "App.js");
+  rt.global().setProperty(rt, propertyName, value);
+}
 
 void task4(jsi::Runtime &rt) {}
 

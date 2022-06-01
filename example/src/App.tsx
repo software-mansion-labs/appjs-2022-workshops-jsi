@@ -14,7 +14,9 @@ export default function App() {
     console.log(isWednesday)
   }
 
-  const task3 = () => {}
+  const task3 = () => {
+    console.log(conferenceName)
+  }
 
   const task4 = () => {}
 
