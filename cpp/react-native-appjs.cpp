@@ -86,7 +86,31 @@ void task6(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task7(jsi::Runtime &rt) {}
+void task7(jsi::Runtime &rt) {
+  const char *functionName = "divideMeThis";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Value &firstNumJs = std::move(args[0]);
+    const jsi::Value &lastNumJs = std::move(args[1]);
+    double firstNum = firstNumJs.asNumber();
+    double lastNum = lastNumJs.asNumber();
+    if (lastNum == 0) {
+      throw jsi::JSError(rt, "Unable to divide by 0");
+    }
+    return jsi::Value(firstNum / lastNum);
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task8(jsi::Runtime &rt) {}
 

@@ -30,7 +30,14 @@ export default function App() {
     console.log(sumMeThis(4, 5))
   }
 
-  const task7 = () => {}
+  const task7 = () => {
+    console.log(divideMeThis(10, 5))
+    try {
+      divideMeThis(10, 0)
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   const task8 = () => {}
 
