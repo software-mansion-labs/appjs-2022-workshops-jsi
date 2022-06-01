@@ -4,16 +4,52 @@ import * as React from 'react';
 
 import { Button, StyleSheet, View } from 'react-native';
 
-declare const foo: number;
-
 export default function App() {
-  const handlePress = () => {
-    console.log(foo);
-  };
+
+  const task1 = () => {}
+
+  const task2 = () => {}
+
+  const task3 = () => {}
+
+  const task4 = () => {}
+
+  const task5 = () => {}
+
+  const task6 = () => {}
+
+  const task7 = () => {}
+
+  const task8 = () => {}
+
+  const task9 = () => {}
+
+  const task10 = () => {}
+
+  const task11 = () => {}
+
+  const task12 = () => {}
+
+  const task13 = () => {}
+
+  const task14 = () => {}
 
   return (
     <View style={styles.container}>
-      <Button title="Click me!" onPress={handlePress} />
+      <Button title="task1" onPress={task1} />
+      <Button title="task2" onPress={task2} />
+      <Button title="task3" onPress={task3} />
+      <Button title="task4" onPress={task4} />
+      <Button title="task5" onPress={task5} />
+      <Button title="task6" onPress={task6} />
+      <Button title="task7" onPress={task7} />
+      <Button title="task8" onPress={task8} />
+      <Button title="task9" onPress={task9} />
+      <Button title="task10" onPress={task10} />
+      <Button title="task11" onPress={task11} />
+      <Button title="task12" onPress={task12} />
+      <Button title="task13" onPress={task13} />
+      <Button title="task14" onPress={task14} />
     </View>
   );
 }
