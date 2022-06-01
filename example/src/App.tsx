@@ -43,7 +43,9 @@ export default function App() {
     console.log(reverseMeThis("App.js"))
   }
 
-  const task9 = () => {}
+  const task9 = () => {
+    console.log(sumMeThisObject({firstNum: 4, lastNum: 5}))
+  }
 
   const task10 = () => {}
 

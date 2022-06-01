@@ -135,7 +135,29 @@ void task8(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task9(jsi::Runtime &rt) {}
+void task9(jsi::Runtime &rt) {
+  const char *functionName = "sumMeThisObject";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Object &objectToSum = std::move(args[0]).asObject(rt);
+    double firstNum = objectToSum.getProperty(rt, "firstNum").asNumber();
+    double lastNum = objectToSum.getProperty(rt, "lastNum").asNumber();
+    jsi::Object result = jsi::Object(rt);
+    result.setProperty(rt, "result", jsi::Value(firstNum + lastNum));
+    return result;
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task10(jsi::Runtime &rt) {}
 
