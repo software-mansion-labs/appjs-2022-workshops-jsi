@@ -316,4 +316,44 @@ void task13(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, func);
 }
 
-void task14(jsi::Runtime &rt) {}
+class InfinityObject : public jsi::HostObject {
+public:
+  jsi::Value get(jsi::Runtime& rt, const jsi::PropNameID& name) override {
+    counter++;
+    return jsi::Value(counter);
+  }
+  
+  void set(jsi::Runtime& rt, const jsi::PropNameID& name, const jsi::Value& value) override {
+    counter--;
+  }
+  
+  std::vector<facebook::jsi::PropNameID> getPropertyNames(jsi::Runtime& rt) override {
+    std::vector<facebook::jsi::PropNameID> properties;
+    return properties;
+  }
+  
+  int counter = 0;
+  
+  InfinityObject() {}
+  ~InfinityObject() override {}
+};
+
+void task14(jsi::Runtime &rt) {
+  const char *propertyName = "getInfinityObject";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    auto infinityObject = std::make_shared<InfinityObject>();
+    return jsi::Object::createFromHostObject(rt, infinityObject);
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, propertyName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, propertyName, func);
+}

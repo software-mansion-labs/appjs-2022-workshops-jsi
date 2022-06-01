@@ -77,7 +77,15 @@ export default function App() {
     console.log('------------------')
   }
 
-  const task14 = () => {}
+  const task14 = () => {
+    const infinityObject = getInfinityObject()
+    console.log(infinityObject.a)
+    console.log(infinityObject.wgwrw)
+    console.log(infinityObject.jboqo345vj)
+    infinityObject.x = 0
+    infinityObject.x = 0
+    console.log(infinityObject.ojbob)
+  }
 
   return (
     <View style={styles.container}>
