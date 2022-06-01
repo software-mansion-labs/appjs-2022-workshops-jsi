@@ -22,7 +22,9 @@ export default function App() {
     console.log(myAwesomeArray)
   }
 
-  const task5 = () => {}
+  const task5 = () => {
+    console.log(giveMeFive, giveMeFive())
+  }
 
   const task6 = () => {}
 

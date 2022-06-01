@@ -44,7 +44,24 @@ void task4(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, arrayValue);
 }
 
-void task5(jsi::Runtime &rt) {}
+void task5(jsi::Runtime &rt) {
+  const char *propertyName = "giveMeFive";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    return jsi::Value(5);
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, propertyName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, propertyName, func);
+}
 
 void task6(jsi::Runtime &rt) {}
 
