@@ -23,7 +23,11 @@ void task1(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, value);
 }
 
-void task2(jsi::Runtime &rt) {}
+void task2(jsi::Runtime &rt) {
+  const char *propertyName = "isWednesday";
+  jsi::Value value = jsi::Value(true);
+  rt.global().setProperty(rt, propertyName, value);
+}
 
 void task3(jsi::Runtime &rt) {}
 

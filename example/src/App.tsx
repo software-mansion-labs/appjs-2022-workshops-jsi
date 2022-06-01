@@ -10,7 +10,9 @@ export default function App() {
     console.log(answerToTheUltimateQuestionOfLifeTheUniverseAndEverything)
   }
 
-  const task2 = () => {}
+  const task2 = () => {
+    console.log(isWednesday)
+  }
 
   const task3 = () => {}
 
