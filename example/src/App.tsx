@@ -47,7 +47,9 @@ export default function App() {
     console.log(sumMeThisObject({firstNum: 4, lastNum: 5}))
   }
 
-  const task10 = () => {}
+  const task10 = () => {
+    console.log(sumMeThisArray([1, 2, 3, 4, 5]))
+  }
 
   const task11 = () => {}
 

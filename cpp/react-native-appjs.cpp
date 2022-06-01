@@ -159,7 +159,30 @@ void task9(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task10(jsi::Runtime &rt) {}
+void task10(jsi::Runtime &rt) {
+  const char *functionName = "sumMeThisArray";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Value &jsValue = std::move(args[0]);
+    jsi::Array arrayToSum = jsValue.asObject(rt).asArray(rt);
+    double sum = 0;
+    for (int i = 0; i < arrayToSum.size(rt); i++) {
+      sum += arrayToSum.getValueAtIndex(rt, i).asNumber();
+    }
+    return jsi::Value(sum);
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task11(jsi::Runtime &rt) {}
 
