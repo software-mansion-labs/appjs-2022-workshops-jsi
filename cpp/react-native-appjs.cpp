@@ -184,7 +184,33 @@ void task10(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task11(jsi::Runtime &rt) {}
+void task11(jsi::Runtime &rt) {
+  const char *functionName = "nativeMap";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Value &jsArray = std::move(args[0]);
+    const jsi::Value &jsFunction = std::move(args[1]);
+    jsi::Array arrayOfNumbers = jsArray.asObject(rt).asArray(rt);
+    jsi::Function mapper = jsFunction.asObject(rt).asFunction(rt);
+    jsi::Array mappedArray(rt, arrayOfNumbers.size(rt));
+    for (int i = 0; i < arrayOfNumbers.size(rt); i++) {
+      jsi::Value mappedValue = mapper.call(rt, arrayOfNumbers.getValueAtIndex(rt, i));
+      mappedArray.setValueAtIndex(rt, i, mappedValue);
+    }
+    return mappedArray;
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task12(jsi::Runtime &rt) {}
 

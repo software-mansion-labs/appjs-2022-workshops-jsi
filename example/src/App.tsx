@@ -51,7 +51,13 @@ export default function App() {
     console.log(sumMeThisArray([1, 2, 3, 4, 5]))
   }
 
-  const task11 = () => {}
+  const task11 = () => {
+    const result = nativeMap(
+      [1, 2, 3, 4, 5],
+      (x: number) => x * x
+    )
+    console.log(result)
+  }
 
   const task12 = () => {}
 
