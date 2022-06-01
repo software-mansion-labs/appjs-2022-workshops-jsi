@@ -63,7 +63,28 @@ void task5(jsi::Runtime &rt) {
   rt.global().setProperty(rt, propertyName, func);
 }
 
-void task6(jsi::Runtime &rt) {}
+void task6(jsi::Runtime &rt) {
+  const char *functionName = "sumMeThis";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    const jsi::Value &firstNumJs = std::move(args[0]);
+    const jsi::Value &lastNumJs = std::move(args[1]);
+    double firstNum = firstNumJs.asNumber();
+    double lastNum = lastNumJs.asNumber();
+    return jsi::Value(firstNum + lastNum);
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, functionName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, functionName, func);
+}
 
 void task7(jsi::Runtime &rt) {}
 

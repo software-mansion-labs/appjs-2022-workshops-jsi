@@ -26,7 +26,9 @@ export default function App() {
     console.log(giveMeFive, giveMeFive())
   }
 
-  const task6 = () => {}
+  const task6 = () => {
+    console.log(sumMeThis(4, 5))
+  }
 
   const task7 = () => {}
 
