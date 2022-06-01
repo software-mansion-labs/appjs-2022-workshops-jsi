@@ -234,6 +234,86 @@ void task12(jsi::Runtime &rt) {
   rt.global().setProperty(rt, functionName, func);
 }
 
-void task13(jsi::Runtime &rt) {}
+class Date : public jsi::HostObject {
+public:
+  jsi::Value get(jsi::Runtime& rt, const jsi::PropNameID& name) override {
+    if (name.utf8(rt) == "now") {
+      time_t now = time(0);
+      std::string dateTime = ctime(&now);
+      return jsi::String::createFromUtf8(rt, dateTime.c_str());
+    }
+    else if (name.utf8(rt) == "day") {
+      return jsi::Value(day);
+    }
+    else if (name.utf8(rt) == "month") {
+      return jsi::Value(month);
+    }
+    else if (name.utf8(rt) == "year") {
+      return jsi::Value(year);
+    }
+    
+    return jsi::Value::undefined();
+  }
+  
+  void set(jsi::Runtime& rt, const jsi::PropNameID& name, const jsi::Value& value) override {
+    if (name.utf8(rt) == "day") {
+      day = value.asNumber();
+    }
+    else if (name.utf8(rt) == "month") {
+      auto month = value.asNumber();
+      if (month > 12) {
+        throw jsi::JSError(rt, "invalid argument for property month");
+      }
+      this->month = month;
+    }
+    else if (name.utf8(rt) == "year") {
+      year = value.asNumber();
+    }
+  }
+  
+  std::vector<facebook::jsi::PropNameID> getPropertyNames(jsi::Runtime& rt) override {
+    std::vector<facebook::jsi::PropNameID> properties;
+    properties.push_back(facebook::jsi::PropNameID::forAscii(rt, "now"));
+    properties.push_back(facebook::jsi::PropNameID::forAscii(rt, "day"));
+    properties.push_back(facebook::jsi::PropNameID::forAscii(rt, "month"));
+    properties.push_back(facebook::jsi::PropNameID::forAscii(rt, "year"));
+    return properties;
+  }
+  
+  int year;
+  int month;
+  int day;
+  
+  Date() {
+    time_t rawtime;
+    time(&rawtime);
+    struct tm *timeinfo = localtime(&rawtime);
+    year = timeinfo->tm_year + 1900;
+    month = timeinfo->tm_mon;
+    day = timeinfo->tm_mday;
+  }
+  ~Date() override {}
+};
+
+void task13(jsi::Runtime &rt) {
+  const char *propertyName = "getDateObject";
+  auto functionBody = [](
+    jsi::Runtime &rt, 
+    const jsi::Value &thisValue, 
+    const jsi::Value *args, 
+    size_t count
+  ) -> jsi::Value {
+    auto date = std::make_shared<Date>();
+    jsi::Object jsDate = jsi::Object::createFromHostObject(rt, date);
+    return jsDate;
+  };
+  jsi::Function func = jsi::Function::createFromHostFunction(
+    rt, 
+    jsi::PropNameID::forAscii(rt, propertyName),
+    0,
+    functionBody
+  );
+  rt.global().setProperty(rt, propertyName, func);
+}
 
 void task14(jsi::Runtime &rt) {}

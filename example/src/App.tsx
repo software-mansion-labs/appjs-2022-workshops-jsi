@@ -63,7 +63,19 @@ export default function App() {
     useJsFunction()
   }
 
-  const task13 = () => {}
+  const task13 = () => {
+    const date = getDateObject()
+    console.log(date)
+    console.log(date.day, date.month, date.year)
+    console.log(date.now)
+    console.log(date.hello)
+    console.log('------------------')
+    date.day = 5
+    date.month = 12
+    date.year = 2025
+    console.log(date.day, date.month, date.year)
+    console.log('------------------')
+  }
 
   const task14 = () => {}
 
